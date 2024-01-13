@@ -9,7 +9,7 @@ Welcome to the Tic Tac Toe game! This simple web-based game allows two players t
 ## Screenshots
 
 ![Game Interface](https://i.ibb.co/4KsBQfY/Screenshot-23.png)
-_Add a brief description of the game interface here._
+\_This is the screenshot of the game interface. I wish you enjoy playing the game.
 
 ![Game Interface](screenshot-url-2)
 _Add a brief description of the game interface here._

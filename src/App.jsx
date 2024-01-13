@@ -13,10 +13,7 @@ function Square({ value, onSquareClick }) {
 	);
 }
 
-export default function Board() {
-	const [square, setSquare] = useState(Array(9).fill(null));
-	const [xISNext, setXIsNext] = useState(true);
-
+export function Board({ xISNext, square, onPlay }) {
 	const winner = calculateWinner(square);
 	let status;
 	if (winner) {
@@ -28,25 +25,27 @@ export default function Board() {
 	function handleSquareClick(index) {
 		const nextSquare = square.slice();
 
+		// Check if the square is already played
 		if (square[index]) {
 			return toast.error("Alreay played! Try another square.");
 		}
+		// Check if the game is over
 		if (calculateWinner(square)) {
 			return toast.error("Gamer Over!");
 		}
-
+		// Put X or O based on xIsNext condition
 		if (xISNext) {
 			nextSquare[index] = "X";
 		} else {
 			nextSquare[index] = "O";
 		}
 
-		setSquare(nextSquare);
-		setXIsNext(!xISNext);
+		// Pass the changes to the Game board
+		onPlay(nextSquare);
 	}
 
 	return (
-		<div className="flex flex-col justify-center h-screen w-screen">
+		<>
 			<h1 className="text-2xl text-center pb-5 font-medium">{status}</h1>
 
 			<div className="flex justify-center items-center">
@@ -63,6 +62,30 @@ export default function Board() {
 				<Square value={square[6]} onSquareClick={() => handleSquareClick(6)} />
 				<Square value={square[7]} onSquareClick={() => handleSquareClick(7)} />
 				<Square value={square[8]} onSquareClick={() => handleSquareClick(8)} />
+			</div>
+		</>
+	);
+}
+
+export default function Game() {
+	const [history, setHistory] = useState([Array(9).fill(null)]);
+	const [xISNext, setXIsNext] = useState(true);
+
+	const currentSquare = history[history.length - 1];
+
+	function handlePlay(nextSquare) {
+		setXIsNext(!xISNext);
+		setHistory([...history, nextSquare]);
+	}
+
+	return (
+		<div className="p-10 md:p-20 w-screen h-screen flex flex-col md:flex-row gap-10 justify-center items-center">
+			<div>
+				<Board xISNext={xISNext} square={currentSquare} onPlay={handlePlay} />
+			</div>
+			<div>
+				<h1 className="text-2xl text-center py-5 font-medium">History</h1>
+				<ol>{/* Display the history moves here */}</ol>
 			</div>
 		</div>
 	);
