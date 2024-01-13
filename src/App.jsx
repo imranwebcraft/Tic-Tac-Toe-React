@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 // Square component
 function Square({ value, onSquareClick }) {
@@ -14,11 +15,22 @@ function Square({ value, onSquareClick }) {
 
 export default function Board() {
 	const [square, setSquare] = useState(Array(9).fill(null));
+	const [xISNext, setXIsNext] = useState(true);
 
 	function handleSquareClick(index) {
 		const nextSquare = square.slice();
-		nextSquare[index] = 'X';
+
+		if (square[index]) {
+			return toast.error('Alreay played! Try another square.');
+		}
+
+		if (xISNext) {
+			nextSquare[index] = 'X';
+		} else {
+			nextSquare[index] = 'O';
+		}
 		setSquare(nextSquare);
+		setXIsNext(!xISNext);
 	}
 
 	return (
