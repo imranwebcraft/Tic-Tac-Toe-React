@@ -1,8 +1,43 @@
-# React + Vite
+# Tic Tac Toe Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the Tic Tac Toe game! This simple web-based game allows two players to take turns and compete against each other to win.
 
-Currently, two official plugins are available:
+## Live Link
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Play the game live](https://tic-tac-toe-react-gray.vercel.app/)
+
+## Screenshots
+
+![Game Interface](https://i.ibb.co/4KsBQfY/Screenshot-23.png)
+_Add a brief description of the game interface here._
+
+![Game Interface](screenshot-url-2)
+_Add a brief description of the game interface here._
+
+## Technologies Used
+
+- React
+- React-Hot-Toast
+- Tailwind CSS
+
+## Functionality
+
+### 1. Current Move Display
+
+- The current move is displayed at the top of the game board.
+
+### 2. Move Restriction
+
+- Players cannot change their move once made.
+
+### 3. Winner Announcement
+
+- The winner is displayed at the top of the game board once the game is won.
+
+### 4. Game End After Winning
+
+- After winning, the game automatically ends, and players cannot continue playing.
+
+### 5. History Board
+
+- The game keeps a history board allowing players to time-travel to different moves.
