@@ -70,13 +70,43 @@ export function Board({ xISNext, square, onPlay }) {
 export default function Game() {
 	const [history, setHistory] = useState([Array(9).fill(null)]);
 	const [xISNext, setXIsNext] = useState(true);
+	const [currentMove, setCurrentMove] = useState(0);
 
-	const currentSquare = history[history.length - 1];
+	// Get latest or current move
+	const currentSquare = history[currentMove];
 
 	function handlePlay(nextSquare) {
 		setXIsNext(!xISNext);
-		setHistory([...history, nextSquare]);
+		const nextHistory = [...history.slice(0, currentMove + 1), nextSquare];
+		// ...history = all null and nextSquare = currentMove er change
+		//Now it possible to compare between these two
+		setHistory(nextHistory);
+		setCurrentMove(nextHistory.length - 1);
 	}
+
+	function jumpTo(move) {
+		setCurrentMove(move);
+		setXIsNext(move % 2 === 0);
+	}
+
+	const moves = history.map((squares, move) => {
+		let description;
+		if (move > 0) {
+			description = `Go to the move # ${move}`;
+		} else {
+			description = `Start the game`;
+		}
+		return (
+			<li
+				key={move}
+				className=" border p-2 rounded-md mb-2 bg-slate-900 hover:bg-slate-800 transition-all duration-200 ease-in-out"
+			>
+				<button onClick={() => jumpTo(move)} className="">
+					{description}
+				</button>
+			</li>
+		);
+	});
 
 	return (
 		<div className="p-10 md:p-20 w-screen h-screen flex flex-col md:flex-row gap-10 justify-center items-center">
@@ -85,7 +115,7 @@ export default function Game() {
 			</div>
 			<div>
 				<h1 className="text-2xl text-center py-5 font-medium">History</h1>
-				<ol>{/* Display the history moves here */}</ol>
+				<ol className=" bg-slate-950 p-5 rounded-lg">{moves}</ol>
 			</div>
 		</div>
 	);
